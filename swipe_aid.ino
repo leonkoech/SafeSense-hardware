@@ -5,6 +5,7 @@
 #include <BLE2902.h>
 
 
+
 // front left 
 //#define SERVICE_UUID "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 //#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
@@ -12,6 +13,14 @@
 // back left
 #define  SERVICE_UUID  "0000aaaa-0000-1000-8000-00805F9B34FB"
 #define CHARACTERISTIC_UUID "0000bbbb-0000-1000-8000-00805F9B34FB"
+
+//// front right
+//#define SERVICE_UUID "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
+//#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+//
+//// back right
+//#define SERVICE_UUID "0000cccc-0000-1000-8000-00805F9B34FB"
+//#define CHARACTERISTIC_UUID "0000dddd-0000-1000-8000-00805F9B34FB"
 
 BLEServer *pServer;
 BLECharacteristic *pCharacteristic;
@@ -63,9 +72,10 @@ void setup() {
 
 void loop() {
   float sensorData = SensorLoop();
-//  Serial.println();
+  Serial.println(sensorData);
   if (isConnected) {
-
+    
+//  Serial.print("Float value: "); 
     char buffer[10];
     dtostrf(sensorData, 6, 2, buffer);
     pCharacteristic->setValue(buffer);
@@ -74,7 +84,7 @@ void loop() {
     // Notify the connected device about the updated value
     pCharacteristic->notify();
     
-    delay(1000); // Adjust the delay as needed based on your data rate
+//    delay(1000); // Adjust the delay as needed based on your data rate
     
   }
 }
